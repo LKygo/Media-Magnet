@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item
+    android:id="@+id/menu_media"
+    android:title="Media"
+    android:icon="@drawable/media"/>
+    <item
+    android:id="@+id/menu_status"
+    android:title="Status"
+    android:icon="@drawable/status"/>
+    <item
+    android:id="@+id/menu_ettings"
+    android:title="Settings"
+    android:icon="@drawable/settings"/>
+</menu>

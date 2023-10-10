@@ -24,4 +24,13 @@ class MediaFragment : Fragment() {
 
         }
     }
+
+//
+//    <com.airbnb.lottie.LottieAnimationView
+//    android:layout_width="match_parent"
+//    android:layout_height="match_parent"
+//    android:id="@+id/animation_view"
+//    app:lottie_rawRes="@raw/loading"
+//    app:lottie_autoPlay="true"
+//    app:lottie_loop="true"/>
 }
