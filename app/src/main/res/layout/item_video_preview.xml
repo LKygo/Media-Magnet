@@ -18,7 +18,7 @@
         app:show_buffering="when_playing"
         app:show_shuffle_button="true" />
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <LinearLayout
         android:id="@+id/toolsHolder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,6 +28,6 @@
             android:id="@+id/tools"
             layout="@layout/layout_tools" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
