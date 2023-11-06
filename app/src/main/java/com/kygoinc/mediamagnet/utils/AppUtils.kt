@@ -14,7 +14,7 @@ fun Activity.replaceFragment(fragment: Fragment, args: Bundle?=null){
         args?.let {
             fragment.arguments = it
         }
-        replace(R.id.fragment_container, fragment)
+        replace(R.id.fragment_nav_container, fragment)
         addToBackStack(null)
     }.commit()
 }

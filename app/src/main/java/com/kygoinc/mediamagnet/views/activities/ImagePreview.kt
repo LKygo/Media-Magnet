@@ -8,12 +8,12 @@ import com.kygoinc.mediamagnet.databinding.ActivityVideoPreviewBinding
 
 class ImagePreview : AppCompatActivity() {
     private val activity = this
-    private val binding by lazy {
-        ActivityImagePreviewBinding.inflate(layoutInflater)
-    }
+    private lateinit var binding: ActivityImagePreviewBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_image_preview)
-        binding.apply {  }
+//        setContentView(R.layout.activity_image_preview)
+        binding = ActivityImagePreviewBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
     }
 }

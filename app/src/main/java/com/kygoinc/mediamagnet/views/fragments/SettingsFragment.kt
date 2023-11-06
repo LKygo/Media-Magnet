@@ -10,18 +10,17 @@ import com.kygoinc.mediamagnet.databinding.FragmentSettingsBinding
 
 
 class SettingsFragment : Fragment() {
-  private val binding by lazy {
-      FragmentSettingsBinding.inflate(layoutInflater)
-  }
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-       binding.apply{}
-    }
+    private lateinit var binding: FragmentSettingsBinding
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    )  = binding.root
+    ): View? {
+        // Inflate the layout for this fragment
+        binding = FragmentSettingsBinding.inflate(inflater, container, false)
+        return binding.root
 
+    }
 
 }

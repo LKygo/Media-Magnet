@@ -7,13 +7,13 @@ import com.kygoinc.mediamagnet.databinding.ActivityVideoPreviewBinding
 
 class VideoPreview : AppCompatActivity() {
     private val activity = this
-    private val binding by lazy {
-        ActivityVideoPreviewBinding.inflate(layoutInflater)
-    }
+    private lateinit var binding: ActivityVideoPreviewBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_video_preview)
+//        setContentView(R.layout.activity_video_preview)
+        binding = ActivityVideoPreviewBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        binding.apply {  }
+
     }
 }
