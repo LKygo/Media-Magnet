@@ -8,13 +8,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.tabs.TabLayoutMediator
-import com.kygoinc.mediamagnet.R
+import com.kygoinc.mediamagnet.data.StatusRepo
 import com.kygoinc.mediamagnet.databinding.FragmentStatusBinding
 import com.kygoinc.mediamagnet.utils.Constants
 import com.kygoinc.mediamagnet.utils.SharedPrefKeys
 import com.kygoinc.mediamagnet.utils.SharedPrefUtils
 import com.kygoinc.mediamagnet.utils.getFolderPermissions
+import com.kygoinc.mediamagnet.viewmodels.StatusViewModel
+import com.kygoinc.mediamagnet.viewmodels.factories.StatusViewModelFactories
 import com.kygoinc.mediamagnet.views.adapters.MediaViewPager
 
 
@@ -25,7 +28,7 @@ class StatusFragment : Fragment() {
     private val WHATSAPP_BUSINESS_REQUEST_CODE = 102
 
     private val viewPagerTitles = arrayListOf("Images", "Videos")
-
+    lateinit var statusViewModel: StatusViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -40,6 +43,14 @@ class StatusFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.let {
+
+            val repo = StatusRepo(requireContext())
+            statusViewModel = ViewModelProvider(
+                requireActivity(),
+                StatusViewModelFactories(repo)
+            )[StatusViewModel::class.java]
+
+
             type = it.getString(Constants.FRAGMENT_TYPE_KEY, "")
             Log.d("temptxv", "$type")
             binding.txvTempText.text = type
@@ -52,10 +63,10 @@ class StatusFragment : Fragment() {
                     val isPermissionGranted = SharedPrefUtils.getPrefBoolean(
                         SharedPrefKeys.PREF_KEY_WP_BUSINESS_PERMISSION_GRANTED, false
                     )
-                    if (isPermissionGranted) {
-                        getWhatsappBusinessSatuses()
-                    } else {
-                        binding.permissionLayoutHolder.visibility = View.VISIBLE
+                    if (!isPermissionGranted) {
+                        getWhatsappBusinessStatuses()
+
+
                     }
 
 //                    Fetch status when granted
@@ -162,20 +173,23 @@ class StatusFragment : Fragment() {
     }
 
     fun getWhatsappSatuses() {
-        val uri = Constants.getWhatsappUri()
-        val uri2 = Constants.getWhatsappBusinessUri()
-        Log.d("uri", "$uri")
-        Log.d("uri2", "$uri2")
+//        val uri = Constants.getWhatsappUri()
+//        val uri2 = Constants.getWhatsappBusinessUri()
+//        Log.d("uri", "$uri")
+//        Log.d("uri2", "$uri2")
 
         binding.permissionLayoutHolder.visibility = View.GONE
+        statusViewModel.getWpStatuses()
     }
 
-    fun getWhatsappBusinessSatuses() {
-        val uri = Constants.getWhatsappUri()
-        val uri2 = Constants.getWhatsappBusinessUri()
-        Log.d("uri", "$uri")
-        Log.d("uri2", "$uri2")
+    fun getWhatsappBusinessStatuses() {
+//        val uri = Constants.getWhatsappUri()
+//        val uri2 = Constants.getWhatsappBusinessUri()
+//        Log.d("uri", "$uri")
+//        Log.d("uri2", "$uri2")
+
         binding.permissionLayoutHolder.visibility = View.GONE
+        statusViewModel.getWpBusinessStatuses()
 
     }
 
@@ -210,7 +224,7 @@ class StatusFragment : Fragment() {
                     SharedPrefUtils.putPrefBoolean(
                         SharedPrefKeys.PREF_KEY_WP_BUSINESS_PERMISSION_GRANTED, true
                     )
-                    getWhatsappBusinessSatuses()
+                    getWhatsappBusinessStatuses()
                 }
             }
         }
