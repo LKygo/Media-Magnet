@@ -3,12 +3,14 @@ package com.kygoinc.mediamagnet.views.adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.kygoinc.mediamagnet.R
 import com.kygoinc.mediamagnet.databinding.ItemMediaBinding
 import com.kygoinc.mediamagnet.models.MEDIA_TYPE_IMAGE
 import com.kygoinc.mediamagnet.models.MediaModel
+import com.kygoinc.mediamagnet.utils.saveStatus
 
 class MediaAdapter(val list: ArrayList<MediaModel>, val context: Context) :
     RecyclerView.Adapter<MediaAdapter.ViewHolder>() {
@@ -16,6 +18,12 @@ class MediaAdapter(val list: ArrayList<MediaModel>, val context: Context) :
         fun bind(model: MediaModel) {
             binding.apply {
                 Glide.with(context).load(model.pathUri).into(statusImage)
+                if (model.type == MEDIA_TYPE_IMAGE) {
+                    statusPlay.visibility = ViewGroup.GONE
+                } else {
+                    statusPlay.visibility = ViewGroup.VISIBLE
+                }
+
                 val downloadImage = if (model.isDownloaded) {
                     R.drawable.baseline_check_24
                 } else {
@@ -29,6 +37,18 @@ class MediaAdapter(val list: ArrayList<MediaModel>, val context: Context) :
                     } else {
 //                        Open video preview activity
 
+                    }
+                }
+
+                statusDownload.setOnClickListener {
+                    val isDownloaded = context.saveStatus(model)
+                    if (isDownloaded) {
+                        Toast.makeText(context, "Status Saved", Toast.LENGTH_SHORT).show()
+                        model.isDownloaded = true
+
+                        statusDownload.setImageResource(R.drawable.baseline_check_24)
+                    } else {
+                        Toast.makeText(context, "Failed to Download", Toast.LENGTH_SHORT).show()
                     }
                 }
 

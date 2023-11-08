@@ -6,6 +6,6 @@ data class MediaModel(
     val pathUri: String,
     val fileName: String,
     val type: String = MEDIA_TYPE_IMAGE,
-    val isDownloaded: Boolean = false,
+    var isDownloaded: Boolean = false,
 ){
 }

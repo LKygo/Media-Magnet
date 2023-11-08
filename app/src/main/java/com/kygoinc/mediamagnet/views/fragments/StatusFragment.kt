@@ -63,7 +63,7 @@ class StatusFragment : Fragment() {
                     val isPermissionGranted = SharedPrefUtils.getPrefBoolean(
                         SharedPrefKeys.PREF_KEY_WP_BUSINESS_PERMISSION_GRANTED, false
                     )
-                    if (!isPermissionGranted) {
+                    if (isPermissionGranted) {
                         getWhatsappBusinessStatuses()
 
 
@@ -82,7 +82,11 @@ class StatusFragment : Fragment() {
                     }
 
 //                    fetch status
-                    val viewPagerAdapter = MediaViewPager(requireActivity())
+                    val viewPagerAdapter = MediaViewPager(
+                        requireActivity(),
+                        imagesType = Constants.MEDIA_TYPE_WHATSAPP_BUSINESS_IMAGES,
+                        videosType = Constants.MEDIA_TYPE_WHATSAPP_BUSINESS_VIDEOS
+                    )
                     binding.statusViewPager.adapter = viewPagerAdapter
                     TabLayoutMediator(binding.tabLayout, binding.statusViewPager) { tab, position ->
                         tab.text = viewPagerTitles[position]

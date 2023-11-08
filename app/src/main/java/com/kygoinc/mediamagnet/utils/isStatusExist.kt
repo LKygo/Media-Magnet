@@ -25,50 +25,50 @@ fun getFileExtension(fileName: String): String {
     val lastDotIndex = fileName.lastIndexOf(".")
 
     if (lastDotIndex >= 0 && lastDotIndex < fileName.length - 1) {
-        return fileName.substring(lastDotIndex - 1)
+        return fileName.substring(lastDotIndex + 1)
     }
     return ""
 }
-//
-//fun Context.saveStatus(model: MediaModel): Boolean {
-//    if (isStatusExist(model.fileName)) {
-//        return true
-//    }
+
+fun Context.saveStatus(model: MediaModel): Boolean {
+    if (isStatusExist(model.fileName)) {
+        return true
+    }
 //    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
 //        return saveStatusBeforeQ(this,Uri.parse(model.pathUri))
 //    }
-//
-//    val extension = getFileExtension(model.fileName)
-//    val mimeType = "${model.type}/$extension"
-//    val inputStream = contentResolver.openInputStream(model.pathUri.toUri())
-//    try {
-//        val values = ContentValues()
-//        values.apply {
-//            put(MediaStore.MediaColumns.MIME_TYPE, mimeType)
-//            put(MediaStore.MediaColumns.DISPLAY_NAME, model.fileName)
-//            put(
-//                MediaStore.MediaColumns.RELATIVE_PATH,
-//                Environment.DIRECTORY_DOCUMENTS + "/" + getString(R.string.app_name)
-//            )
-//        }
-//        val uri = contentResolver.insert(
-//            MediaStore.Files.getContentUri("external"),
-//            values
-//        )
-//        uri?.let {
-//            val outputStream = contentResolver.openOutputStream(it)
-//            if (inputStream != null) {
-//                outputStream?.write(inputStream.readBytes())
-//            }
-//            outputStream?.close()
-//            inputStream?.close()
-//            return true
-//        }
-//    } catch (e: Exception) {
-//        e.printStackTrace()
-//    }
-//    return false
-//}
+
+    val extension = getFileExtension(model.fileName)
+    val mimeType = "${model.type}/$extension"
+    val inputStream = contentResolver.openInputStream(model.pathUri.toUri())
+    try {
+        val values = ContentValues()
+        values.apply {
+            put(MediaStore.MediaColumns.MIME_TYPE, mimeType)
+            put(MediaStore.MediaColumns.DISPLAY_NAME, model.fileName)
+            put(
+                MediaStore.MediaColumns.RELATIVE_PATH,
+                Environment.DIRECTORY_DOCUMENTS + "/" + getString(R.string.app_name)
+            )
+        }
+        val uri = contentResolver.insert(
+            MediaStore.Files.getContentUri("external"),
+            values
+        )
+        uri?.let {
+            val outputStream = contentResolver.openOutputStream(it)
+            if (inputStream != null) {
+                outputStream?.write(inputStream.readBytes())
+            }
+            outputStream?.close()
+            inputStream?.close()
+            return true
+        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+    return false
+}
 //
 //private fun saveStatusBeforeQ(context: Context, uri: Uri): Boolean {
 //    // converting doc file to file
@@ -114,18 +114,3 @@ fun getFileExtension(fileName: String): String {
 //    }
 //
 //}
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
