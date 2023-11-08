@@ -21,7 +21,7 @@
         app:titleTextColor="@color/white" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/videoViewPager"
+        android:id="@+id/rcvVideoViewer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="horizontal"

@@ -28,10 +28,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         SharedPrefUtils.init(activity)
         val navView = binding.bottomNavigation
-//        val navController = binding.fragmentNavContainer
 
-
-//        navView.setupWithNavController(navController)
 // Set initial fragment
         val initialFragment = StatusFragment()
         val initialBundle = Bundle()
