@@ -45,8 +45,6 @@ class MediaFragment : Fragment() {
 
             type = it.getString(Constants.FRAGMENT_TYPE_KEY, "")
             val mediaType = it.getString(Constants.MEDIA_TYPE_KEY, "")
-            Log.d("temptxv", "${mediaType}")
-//            binding.txvMedia.text = mediaType
 
             when (mediaType) {
                 Constants.MEDIA_TYPE_WHATSAPP_IMAGES -> {
@@ -62,6 +60,12 @@ class MediaFragment : Fragment() {
 
                         mediaAdapter = MediaAdapter(list, requireActivity())
                         rcvMediaRecycler.adapter = mediaAdapter
+
+                        if (list.size == 0) {
+                            binding.txvMedia.visibility = View.VISIBLE
+                        } else {
+                            binding.txvMedia.visibility = View.GONE
+                        }
                     }
                 }
 
@@ -78,6 +82,11 @@ class MediaFragment : Fragment() {
 
                         mediaAdapter = MediaAdapter(list, requireActivity())
                         rcvMediaRecycler.adapter = mediaAdapter
+                        if (list.size == 0) {
+                            binding.txvMedia.visibility = View.VISIBLE
+                        } else {
+                            binding.txvMedia.visibility = View.GONE
+                        }
                     }
                 }
 
@@ -96,6 +105,12 @@ class MediaFragment : Fragment() {
                         mediaAdapter = MediaAdapter(list, requireActivity())
 
                         rcvMediaRecycler.adapter = mediaAdapter
+
+                        if (list.size == 0) {
+                            binding.txvMedia.visibility = View.VISIBLE
+                        } else {
+                            binding.txvMedia.visibility = View.GONE
+                        }
                     }
                 }
 
@@ -113,6 +128,12 @@ class MediaFragment : Fragment() {
 
                         mediaAdapter = MediaAdapter(list, requireActivity())
                         rcvMediaRecycler.adapter = mediaAdapter
+
+                        if (list.size == 0) {
+                            binding.txvMedia.visibility = View.VISIBLE
+                        } else {
+                            binding.txvMedia.visibility = View.GONE
+                        }
                     }
                 }
 

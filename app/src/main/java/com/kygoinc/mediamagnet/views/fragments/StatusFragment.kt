@@ -3,11 +3,14 @@ package com.kygoinc.mediamagnet.views.fragments
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kygoinc.mediamagnet.data.StatusRepo
@@ -52,8 +55,6 @@ class StatusFragment : Fragment() {
 
 
             type = it.getString(Constants.FRAGMENT_TYPE_KEY, "")
-            Log.d("temptxv", "$type")
-            binding.txvTempText.text = type
 
 
             when (type) {
@@ -66,6 +67,9 @@ class StatusFragment : Fragment() {
                     if (isPermissionGranted) {
                         getWhatsappBusinessStatuses()
 
+                        binding.swipeRefreshLayout.setOnRefreshListener {
+                            refreshStatuses()
+                        }
 
                     }
 
@@ -92,6 +96,10 @@ class StatusFragment : Fragment() {
                         tab.text = viewPagerTitles[position]
                     }.attach()
 
+                    binding.swipeRefreshLayout.setOnRefreshListener {
+                        refreshStatuses()
+                    }
+
                 }
 
                 Constants.TYPE_WHATSAPP_MAIN -> {
@@ -102,6 +110,10 @@ class StatusFragment : Fragment() {
                     )
                     if (isPermissionGranted) {
                         getWhatsappSatuses()
+
+                        binding.swipeRefreshLayout.setOnRefreshListener {
+                            refreshStatuses()
+                        }
                     } else {
                         binding.permissionLayoutHolder.visibility = View.VISIBLE
                     }
@@ -175,6 +187,24 @@ class StatusFragment : Fragment() {
             }
         }
     }
+
+    fun refreshStatuses() {
+        when (type) {
+            Constants.TYPE_WHATSAPP_BUSINESS -> {
+                Toast.makeText(requireContext(), "Refreshing", Toast.LENGTH_SHORT).show()
+                getWhatsappBusinessStatuses()
+            }
+
+            Constants.TYPE_WHATSAPP_MAIN -> {
+                Toast.makeText(requireContext(), "Refreshing", Toast.LENGTH_SHORT).show()
+                getWhatsappSatuses()
+            }
+        }
+        Handler(Looper.myLooper()!!).postDelayed({
+            binding.swipeRefreshLayout.isRefreshing = false
+        }, 4000)
+    }
+
 
     fun getWhatsappSatuses() {
 //        val uri = Constants.getWhatsappUri()

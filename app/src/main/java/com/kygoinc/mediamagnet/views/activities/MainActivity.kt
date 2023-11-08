@@ -29,12 +29,14 @@ class MainActivity : AppCompatActivity() {
         SharedPrefUtils.init(activity)
         val navView = binding.bottomNavigation
 
+//        splashLogic()
 // Set initial fragment
         val initialFragment = StatusFragment()
         val initialBundle = Bundle()
         initialBundle.putString(Constants.FRAGMENT_TYPE_KEY, Constants.TYPE_WHATSAPP_MAIN)
         initialFragment.arguments = initialBundle
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_nav_container, initialFragment)
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_nav_container, initialFragment)
             .commit()
 
         navView.setOnItemSelectedListener {
@@ -42,24 +44,14 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.menu_business_status -> {
 
-
-                    Log.d("bottomnav", "b status clicked")
                     val statusFragment = StatusFragment()
                     val bundle = Bundle()
                     bundle.putString(Constants.FRAGMENT_TYPE_KEY, Constants.TYPE_WHATSAPP_BUSINESS)
-                    Toast.makeText(
-                        this@MainActivity,
-                        Constants.TYPE_WHATSAPP_BUSINESS,
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
+
                     replaceFragment(statusFragment, bundle)
                 }
 
                 R.id.menu_settings -> {
-                    Toast.makeText(this@MainActivity, "Settings clicked", Toast.LENGTH_SHORT)
-                        .show()
-                    Log.d("bottomnav", "settings clicked")
                     replaceFragment(SettingsFragment())
                 }
 
@@ -70,12 +62,6 @@ class MainActivity : AppCompatActivity() {
                     val statusFragment = StatusFragment()
                     val bundle = Bundle()
                     bundle.putString(Constants.FRAGMENT_TYPE_KEY, Constants.TYPE_WHATSAPP_MAIN)
-                    Toast.makeText(
-                        this@MainActivity,
-                        Constants.TYPE_WHATSAPP_MAIN,
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
                     replaceFragment(statusFragment, bundle)
                 }
             }
@@ -83,9 +69,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun splashLogic() {
+        TODO("Not yet implemented")
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        val fragment =  supportFragmentManager.findFragmentById(R.id.fragment_nav_container)
+        val fragment = supportFragmentManager.findFragmentById(R.id.fragment_nav_container)
         fragment?.onActivityResult(requestCode, resultCode, data)
 
     }
